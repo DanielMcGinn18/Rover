@@ -1,0 +1,295 @@
+<html>
+<head>
+<title>Rover Controller</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+<link rel="icon" href="https://raw.githubusercontent.com/tuftsceeo/RootRobot/master/Webserver/gamepad-solid.png" type="image/png" sizes="16x16">
+<!-- JQuery links  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<style type="text/css">
+div.contain {
+  width: 390px;
+  height: 400px;
+  padding: 12px;
+  border: 2px solid coral;
+  overflow: auto;
+}
+textarea.mono {
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 11px;
+}
+textarea.monoSmall {
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 8.5px;
+}
+input.mono {
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 11px;
+}
+.green{
+  color: #38DF44;
+}
+.red{
+  color: red;
+}
+.buttonRed{
+  font-size: 25px;
+  color: red;
+}
+.blinkingGreen{
+  animation:blinkingTextGreen 2s infinite;
+}
+.dotGreen {
+  animation:blinkingDotGreen 2s infinite;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.blinkingRed{
+  animation:blinkingTextRed 2s infinite;
+}
+.dotRed {
+  animation:blinkingDotRed 2s infinite;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+@keyframes blinkingTextGreen{
+  0%{   color: #38DF44;  }
+  50%{  color: transparent; }
+  100%{ color: #38DF44;  }
+}
+@keyframes blinkingDotGreen{
+  0%{   background-color: #38DF44;  }
+  50%{  background-color: transparent; }
+  100%{ background-color: #38DF44;  }
+}
+@keyframes blinkingTextRed{
+  0%{   color: red;  }
+  50%{  color: transparent; }
+  100%{ color: red;  }
+}
+@keyframes blinkingDotRed{
+  0%{   background-color: red;  }
+  50%{  background-color: transparent; }
+  100%{ background-color: red;  }
+}
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 25px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: black;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  /*-webkit-transition: 0.2s;
+  /*transition-duration: 0.4s;*/
+  cursor: pointer;
+}
+
+.button1 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #4CAF50;
+}
+
+.button1:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.button2 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #dfe617;
+}
+
+.button2:hover {
+  background-color: #dfe617;
+  color: white;
+}
+
+.button3 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #f44336;
+}
+
+.button3:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+div.contain {
+  width: 320px;
+  height: 260px;
+  padding: 2px;
+  overflow: auto;
+}
+
+.camera-bg {
+  position: fixed; 
+/*  top: 0; 
+  left: 0; */
+
+  /* Preserve aspet ratio */
+  min-width: 100%;
+  min-height: 100%;
+
+    /* Full height */
+  height: 100%;
+
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+</style>
+</head>
+<body onload="requestData()" style="width:960px; margin: 20px auto;">
+
+<!-- Video Stream -->
+<aside style="float:right;width:525px;"> 
+ <br><br><br>
+ <img  class="camera-bg" style="width: 40%; height:32%; background-attachment: fixed;" id="bg" class="center" src="{{ url_for('video_feed') }}">
+<br> <br><br><br><br><br><br><br><br><br><br>
+<!-- Sensor Values -->
+ <p id="sensor1"></p>
+	<br>
+	<p id="sensor2"></p>
+	<script>
+		function requestData()
+        {
+            // Ajax call to get the Data from Flask
+            var requests = $.get('/data');
+            var tm = requests.done(function (result)
+            {
+	            /*var x = JSON.stringify(requests);
+	            document.getElementById("sensor1").innerHTML = x*/
+	            var x = requests.responseJSON
+	            document.getElementById("sensor1").innerHTML = x[1]
+	            document.getElementById("sensor2").innerHTML = x[2]
+	            setTimeout(requestData, 1000);
+	        });
+        }
+    </script>
+
+
+</aside>
+
+<!-- Connection Status -->
+<h1>Rover Controller</h1>
+<h4 hidden id = "connected">%s</h4> 
+<form action="/" method="POST">
+     <span id="dot"></span> <!-- Blink red  -->
+     <span id="connectionStatus"></span>
+</form>
+<script>
+  var connected = document.getElementById('connected').innerHTML;
+    if (connected == 'True') {
+    document.getElementById("dot").className = "dotGreen";
+    document.getElementById("connectionStatus").className = "green";
+    document.getElementById("connectionStatus").innerHTML = 'Connected';
+    document.getElementById("return").style.display = "none";
+  } else {
+    document.getElementById("dot").className = "dotRed";
+    document.getElementById("connectionStatus").className = "red";
+    document.getElementById("connectionStatus").innerHTML = 'Not Connected';
+    document.getElementById("return").style.display = "initial";
+  }
+</script>
+
+<!-- Controls -->
+<aside style="float:left;width:320px;">
+	<form action="/" method="POST" >
+		<center>
+			<button type="submit" name='Fwd' value='True' style="font-size:48px"><i class="fa fa-arrow-circle-up"></i></button>
+		</center><br>
+		<center>
+			<button type="submit" name='Left' value='True'style="font-size:48px"><i class="fa fa-arrow-circle-left"></i></button> 
+			&nbsp&nbsp
+			<button type="submit" name='Stop' value='True' style="font-size:48px"><i class="fa fa-stop-circle"></i></button> 
+			&nbsp&nbsp
+			<button type="submit" name='Right' value='True' style="font-size:48px"><i class="fa fa-arrow-circle-right"></i></button>
+		</center><br>
+		<center>
+			<button type="submit" name='Bkwd' value='True' style="font-size:48px"><i class="fa fa-arrow-circle-down"></i></button>
+		</center>
+	</form>
+	<form id="slide" action="/" method="POST">
+		<input type="range" name="submit" step="5" min="0" max="100" value="0" class="slider" id="Speed">
+		<input hidden id='submitSpeed' type='submit' name='speed' value='True' tabindex='-1'>
+	</form>
+	<form hidden id='speedForm' action="/" method="POST">
+		<input id='speedFormText' type='text' name='Speed' tabindex='-1'>
+	</form>
+	<center>
+		<h4 hidden id='SpeedSetting'>0</h4>
+		<h4 id="SpeedText"></h4>
+	</center>
+	<form id='ledForm' action="/" method="POST">
+<!-- 	<center>
+		<button type="submit" name='Green' value='True' class="button button1">Green</button>
+		<button type="submit" name='Yellow' value='True' class="button button2">Yellow</button>
+		<button type="submit" name='Red' value='True' class="button button3">Red</button>
+	</center> -->
+	</form>
+</aside>
+<script>
+	document.getElementById("Speed").addEventListener("change", submit);
+	function submit() {
+		document.getElementById('speedFormText').value = 
+		document.getElementById('Speed').value 
+    	document.getElementById('speedForm').submit();
+	} 
+	// var slide = document.getElementById('Speed'),
+	// slide.onchange = function() {
+	// 	document.getElementById('speedSlider').submit();
+	// }
+    document.getElementById("Speed").value =
+    document.getElementById("SpeedSetting").innerHTML;
+    document.getElementById("SpeedText").innerHTML = 
+    'Speed:'+document.getElementById("SpeedSetting").innerHTML+'/100';
+</script>

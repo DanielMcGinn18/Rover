@@ -1,0 +1,5 @@
+# General
+.DS_Store
+
+# Exclude Directory
+exclude/
