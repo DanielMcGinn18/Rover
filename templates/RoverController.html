@@ -61,6 +61,8 @@
 
 <!-- Controls -->
 <aside style="float:left;width:320px;">
+  <!-- Drive Commands -->
+<h3><i class="fas fa-arrows-alt"></i>  Drive Rover</h3>
 	<form action="/" method="POST" >
 		<center>
 			<button type="submit" name='Fwd' value='True' style="font-size:48px"><i class="fa fa-arrow-circle-up"></i></button>
@@ -87,12 +89,15 @@
 		<h4 hidden id='SpeedSetting'>0</h4>
 		<h4 id="SpeedText"></h4>
 	</center>
+
+  <!-- Control LEDs -->
+<h3><i class="fas fa-lightbulb"></i>  Control LEDs</h3>
 	<form id='ledForm' action="/" method="POST">
-<!-- 	<center>
-		<button type="submit" name='Green' value='True' class="button button1">Green</button>
-		<button type="submit" name='Yellow' value='True' class="button button2">Yellow</button>
-		<button type="submit" name='Red' value='True' class="button button3">Red</button>
-	</center> -->
+	<center>
+		<button type="submit" name='Red' value='True' class="button buttonRed">Red</button>
+		<button type="submit" name='Green' value='True' class="button buttonGreen">Green</button>
+		<button type="submit" name='Blue' value='True' class="button buttonBlue">Blue</button>
+	</center>
 	</form>
 </aside>
 <script>
