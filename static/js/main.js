@@ -15,35 +15,3 @@ function requestData()
 	            setTimeout(requestData, 1000);
 	        });
         }
-
-/* Display Connection Status */
-
-  var connected = document.getElementById('connected').innerHTML;
-    if (connected == 'True') {
-    document.getElementById("dot").className = "dotGreen";
-    document.getElementById("connectionStatus").className = "green";
-    document.getElementById("connectionStatus").innerHTML = 'Connected';
-    document.getElementById("return").style.display = "none";
-  } else {
-    document.getElementById("dot").className = "dotRed";
-    document.getElementById("connectionStatus").className = "red";
-    document.getElementById("connectionStatus").innerHTML = 'Not Connected';
-    document.getElementById("return").style.display = "initial";
-  }
-
-/* Display Speed */
-
-	document.getElementById("Speed").addEventListener("change", submit);
-	function submit() {
-		document.getElementById('speedFormText').value = 
-		document.getElementById('Speed').value 
-    	document.getElementById('speedForm').submit();
-	} 
-	// var slide = document.getElementById('Speed'),
-	// slide.onchange = function() {
-	// 	document.getElementById('speedSlider').submit();
-	// }
-    document.getElementById("Speed").value =
-    document.getElementById("SpeedSetting").innerHTML;
-    document.getElementById("SpeedText").innerHTML = 
-    'Speed:'+document.getElementById("SpeedSetting").innerHTML+'/100';
