@@ -7,6 +7,7 @@ import RPi.GPIO as GPIO # GPIO library to control GPIO pins of Raspberry Pi
 import time, threading, os, socket, random, json
 from time import time
 from random import random
+import board, adafruit_hcsr04 # Libraries for Ultrasonic Sensor
 
 pi_camera = VideoCamera(flip=False) # flip pi camera if upside down.
 
@@ -24,7 +25,6 @@ host_port = 8000 # Set host port
 # addr = 0x8 # bus address
 # bus = SMBus(1) # indicates /dev/ic2-1
 # numb = 1
-
 
 @app.route('/')
 def index():
@@ -44,25 +44,19 @@ def video_feed():
 
 @app.route("/test", methods=["POST"])
 def test():
-    # Get slider Values
-    slider1 = request.form["slider1"]
-    slider2 = request.form["slider2"]
-    # Change duty cycle
-    p.ChangeDutyCycle(float(slider1))
-    p1.ChangeDutyCycle(float(slider2))
-    # Give servo some time to move
+    slider1 = request.form["slider1"]  # Get slider Value
+    p.ChangeDutyCycle(float(slider1)) # Change duty cycle
     sleep(1)
-    # Pause the servo
     p.ChangeDutyCycle(0)
-    p1.ChangeDutyCycle(0)
     return render_template_string(TPL)
 
 # Send sensor values to webserver
 @app.route('/data', methods=["GET", "POST"])
 def data():
-    Data1 = random() * 100 # Random Number for Debug
+    # Data1 = random() * 100 # Random Number for testing
+    sonar = adafruit_hcsr04.HCSR04(trigger_pin=board.D5, echo_pin=board.D6)
     temp = os.popen("/opt/vc/bin/vcgencmd measure_temp").read()
-    data = [time() * 1000, Data1, temp]
+    data = [time() * 1000, sonar.distance, temp]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
     return response
