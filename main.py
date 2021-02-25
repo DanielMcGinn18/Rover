@@ -56,8 +56,13 @@ def test():
 @app.route('/data', methods=["GET", "POST"])
 def data():
     # Data1 = random() * 100 # Random Number for testing
+    while True:
+        try:
+            distance = sonar.distance
+        except RuntimeError:
+            distance = 'Error'
     temp = os.popen("/opt/vc/bin/vcgencmd measure_temp").read()
-    data = [time() * 1000, sonar.distance, temp]
+    data = [time() * 1000, distance, temp]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
     return response
