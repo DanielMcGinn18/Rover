@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
   <link rel="icon" href="https://raw.githubusercontent.com/tuftsceeo/RootRobot/master/Webserver/gamepad-solid.png" type="image/png" sizes="16x16">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQuery link  -->
+  <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body onload="requestData()" style="width:960px; margin: 20px auto;">
@@ -16,25 +17,7 @@
 <br> <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <!-- Sensor Values -->
  <p id="sensor1"></p>
-	<p id="sensor2"></p>
-	<script>
-		function requestData()
-        {
-            // Ajax call to get the Data from Flask
-            var requests = $.get('/data');
-            var tm = requests.done(function (result)
-            {
-	            /*var x = JSON.stringify(requests);
-	            document.getElementById("sensor1").innerHTML = x*/
-	            var x = requests.responseJSON
-	            document.getElementById("sensor1").innerHTML = x[1]
-	            document.getElementById("sensor2").innerHTML = x[2]
-	            setTimeout(requestData, 1000);
-	        });
-        }
-    </script>
-
-
+ <p id="sensor2"></p>
 </aside>
 
 <!-- Connection Status -->

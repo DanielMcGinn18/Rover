@@ -21,6 +21,8 @@ s.close()
 
 host_port = 8000 # Set host port
 
+sonar = adafruit_hcsr04.HCSR04(trigger_pin=board.D5, echo_pin=board.D6) # Setup Untrasonic Sensor
+
 # Initialize Variables for I2C Communication 
 # addr = 0x8 # bus address
 # bus = SMBus(1) # indicates /dev/ic2-1
@@ -54,9 +56,14 @@ def test():
 @app.route('/data', methods=["GET", "POST"])
 def data():
     # Data1 = random() * 100 # Random Number for testing
-    sonar = adafruit_hcsr04.HCSR04(trigger_pin=board.D5, echo_pin=board.D6)
+    try:
+        distance = 'Ultrasonic Sensor: ' + str(round(sonar.distance,2))
+    except RuntimeError:
+        distance = 'Error'
     temp = os.popen("/opt/vc/bin/vcgencmd measure_temp").read()
-    data = [time() * 1000, sonar.distance, temp]
+    temp_US = ('Raspberry Pi Temp: ' + str(round(((float(temp.split('=')[1].split("'")[0])*1.8)+30),2)) +
+     u'\N{DEGREE SIGN}' + ' F') # Convert to Fahrenheit
+    data = [time() * 1000, distance, temp_US]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
     return response
