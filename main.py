@@ -61,7 +61,8 @@ def data():
     except RuntimeError:
         distance = 'Error'
     temp = os.popen("/opt/vc/bin/vcgencmd measure_temp").read()
-    data = [time() * 1000, distance, temp]
+    temp_US = str((float(temp.split('=')[1].split("'")[0])*1.8)+30) + u'\N{DEGREE SIGN}' + ' F' # Convert to Fahrenheit
+    data = [time() * 1000, distance, temp_US]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
     return response
