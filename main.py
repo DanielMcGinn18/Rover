@@ -57,12 +57,12 @@ def test():
 def data():
     # Data1 = random() * 100 # Random Number for testing
     try:
-        distance = sonar.distance
+        distance = 'Ultrasonic Sensor: ' + round(sonar.distance,2)
     except RuntimeError:
         distance = 'Error'
     temp = os.popen("/opt/vc/bin/vcgencmd measure_temp").read()
-    temp_US = ('Raspberry Pi Temperature:' + str((float(temp.split('=')[1].split("'")[0])*1.8)+30) + 
-    u'\N{DEGREE SIGN}' + ' F') # Convert to Fahrenheit
+    temp_US = ('Raspberry Pi Temp: ' + str(round(((float(temp.split('=')[1].split("'")[0])*1.8)+30),2)) +
+     u'\N{DEGREE SIGN}' + ' F') # Convert to Fahrenheit
     data = [time() * 1000, distance, temp_US]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
