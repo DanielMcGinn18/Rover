@@ -102,6 +102,39 @@ input.mono {
   cursor: pointer;
 }
 
+.verticalslider {
+  writing-mode: bt-lr; /* IE */
+  -webkit-appearance: slider-vertical; /* WebKit */
+  width: 100%;
+  height: 25px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.verticalslider:hover {
+  opacity: 1;
+}
+
+.verticalslider::-webkit-slider-thumb {
+  writing-mode: bt-lr; /* IE */
+  -webkit-appearance: slider-vertical; /* WebKit */
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: black;
+  cursor: pointer;
+}
+
+.verticalslider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
 .button {
   /* background-color: #4CAF50;
   border: none;
@@ -230,10 +263,4 @@ div.contain {
   background-repeat: no-repeat;
   background-size: cover;
 
-}
-
-input[type=range][orient=vertical]
-{
-    writing-mode: bt-lr; /* IE */
-    -webkit-appearance: slider-vertical; /* WebKit */
 }
