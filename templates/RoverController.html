@@ -6,7 +6,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQuery link  -->
   <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-  <link rel="shortcut icon" href="{{ url_for('static', filename='img/space-shuttle-solid.svg') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='img/rocket-solid.svg') }}">
 </head>
 <body onload="requestData()" style="width:960px; margin: 20px auto;">
 
@@ -21,7 +21,8 @@
 </aside>
 
 <!-- Connection Status -->
-<h1>Rover Controller</h1>
+
+<h1><i class="fas fa-user-astronaut" style="font-size:30px;"></i>  Mission Control</h1>
 <h4 hidden id = "connected">%s</h4> 
 <form action="/" method="POST">
      <span id="dot"></span> <!-- Blink red  -->
