@@ -57,7 +57,7 @@ def test():
 def data():
     # Data1 = random() * 100 # Random Number for testing
     try:
-        distance = 'Ultrasonic Sensor: ' + round(sonar.distance,2)
+        distance = 'Ultrasonic Sensor: ' + str(round(sonar.distance,2))
     except RuntimeError:
         distance = 'Error'
     temp = os.popen("/opt/vc/bin/vcgencmd measure_temp").read()
