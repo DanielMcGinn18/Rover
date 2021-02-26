@@ -3,11 +3,15 @@
 from flask import Flask,render_template,url_for,request,redirect, make_response, Response, request # micro web framework 
 from camera import VideoCamera # Camera Module
 import RPi.GPIO as GPIO # GPIO library to control GPIO pins of Raspberry Pi
+GPIO.setmode(GPIO.BCM)
 # from smbus2 import SMBus # i2c capabilities to control atmega328p
 import time, threading, os, socket, random, json
 from time import time
 from random import random
 import board, adafruit_hcsr04 # Libraries for Ultrasonic Sensor
+
+GPIO.setup(16, GPIO.OUT) # GPIO Pin for Cooling Fan
+GPIO.output(16, 0) # Initialize Fan off
 
 pi_camera = VideoCamera(flip=False) # flip pi camera if upside down.
 
@@ -46,6 +50,10 @@ def video_feed():
 
 @app.route("/test", methods=["POST"])
 def test():
+    if form.validate_on_submit():
+        print(request.form)
+        if 'Fan' in request.form:
+            GPIO.output(16, 1)
     slider1 = request.form["slider1"]  # Get slider Value
     p.ChangeDutyCycle(float(slider1)) # Change duty cycle
     sleep(1)
