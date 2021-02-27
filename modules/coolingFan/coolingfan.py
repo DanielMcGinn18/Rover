@@ -54,4 +54,4 @@ try:
 		app.run(host=ip_address, port=8000, debug=False)
 except KeyboardInterrupt:
 	fan = 0 # turn fan off
-    print("\n-------------------EXIT-------------------")
+	print("\n-------------------EXIT-------------------")
