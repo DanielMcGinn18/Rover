@@ -1,10 +1,15 @@
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> <!-- JQuery link for submit without refresh-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQuery link for requestdata()-->
-<script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
+
+
+<head>
+  <title>Cooling Fan</title>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> <!-- JQuery link for submit without refresh-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQuery link for requestdata()-->
+  <script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
+  <link rel=mask-icon color=white rel=icon href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/svgs/solid/fan.svg>
+</head>
 
 <body onload="requestData()" style="width:960px; margin: 20px auto;">
   <div class='container'>
-      <span id="test">Test</span>
       <p><i class="fas fa-fan"></i> <span id="actuator1">Cooling Fan: </span></p>
           <form>
               <a href=# id=test><button class='btn btn-default'>Toggle</button></a>
