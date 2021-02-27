@@ -1,7 +1,8 @@
 import RPi.GPIO as GPIO
 from time import sleep
 from flask import Flask,render_template,url_for,request,redirect, make_response, Response, request # micro web framework 
-import socket, json
+import socket
+import json
 from time import time
 
 GPIO.setmode(GPIO.BCM)
