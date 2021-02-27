@@ -24,15 +24,15 @@ def json():
 @app.route('/background_process')
 def background_process():
 	global fan
-    if fan == 0:
-    	fan = 1
-    	GPIO.output(16, fan) # switch it on
-    	print ("Fan On")
-    else:
-    	fan = 0
-    	GPIO.output(16, fan) # switch it off
-    	print ("Fan Off")
-    return ("nothing")
+	if fan == 0:
+		fan = 1
+		GPIO.output(16, fan) # switch it on
+		print ("Fan On")
+	else:
+		fan = 0
+		GPIO.output(16, fan) # switch it off
+		print ("Fan Off")
+	return ("nothing")
 
 @app.route('/data', methods=["GET", "POST"])
 def data():
