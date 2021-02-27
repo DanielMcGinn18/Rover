@@ -3,6 +3,7 @@ from time import sleep
 from flask import Flask,render_template,url_for,request,redirect, make_response, Response, request # micro web framework 
 import socket
 import json
+import time as time
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(16, GPIO.OUT) 
