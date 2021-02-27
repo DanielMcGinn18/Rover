@@ -18,7 +18,7 @@ s.close()
 #rendering the HTML page which has the button
 @app.route('/')
 def json():
-    return render_template('coolingfan.html')
+	return render_template('coolingfan.html')
 
 #background process happening without any refreshing
 @app.route('/background_process')
@@ -37,12 +37,12 @@ def background_process():
 @app.route('/data', methods=["GET", "POST"])
 def data():
 	global fan
-    data1 = 'Cooling Fan: ' + fan
-    data = [fan]
-    response = make_response(json.dumps(data))
-    response.content_type = 'application/json'
-    return response
+	data1 = 'Cooling Fan: ' + fan
+	data = [fan]
+	response = make_response(json.dumps(data))
+	response.content_type = 'application/json'
+	return response
 
 if __name__ == '__main__':
 
-    app.run(host=ip_address, port=8000, debug=False)
+	app.run(host=ip_address, port=8000, debug=False)
