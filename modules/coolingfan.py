@@ -19,7 +19,7 @@ s.close()
 
 #rendering the HTML page which has the button
 @app.route('/')
-def json():
+def index():
 	return render_template('coolingfan.html')
 
 #background process happening without any refreshing
