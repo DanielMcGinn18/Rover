@@ -38,9 +38,9 @@ def background_process():
 def data():
 	global fan
 	if fan == 1:
-		data = 'Cooling Fan: On'
+		data = ['Cooling Fan: On']
 	else:
-		data = 'Cooling Fan: Off'
+		data = ['Cooling Fan: Off']
 	response = make_response(json.dumps(data))
 	response.content_type = 'application/json'
 	return response
