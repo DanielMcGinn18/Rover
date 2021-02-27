@@ -37,8 +37,10 @@ def background_process():
 @app.route('/data', methods=["GET", "POST"])
 def data():
 	global fan
-	data1 = 'Cooling Fan: ' + fan
-	data = [fan]
+	if fan == 1:
+		data = 'Cooling Fan: On'
+	else:
+		data = 'Cooling Fan: Off'
 	response = make_response(json.dumps(data))
 	response.content_type = 'application/json'
 	return response
