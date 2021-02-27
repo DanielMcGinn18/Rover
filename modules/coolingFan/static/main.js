@@ -18,8 +18,8 @@ function requestData()
           var requests = $.get('/data');
           var tm = requests.done(function (result)
           {
-            /*var x = JSON.stringify(requests);
-            document.getElementById("sensor1").innerHTML = x*/
+            var y = JSON.stringify(requests);
+            document.getElementById("test").innerHTML = y
             var x = requests.responseJSON
             document.getElementById("actuator1").innerHTML = x[1]
             setTimeout(requestData, 1000);
