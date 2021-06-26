@@ -8,6 +8,7 @@ from time import time
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(16, GPIO.OUT) 
 fan = 0
+GPIO.output(16, fan) # turn fan off
 
 app = Flask(__name__)
 
