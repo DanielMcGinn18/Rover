@@ -14,7 +14,7 @@ while numb == 1:
 	input1 = int(input(">>>>   "))
 	input1 = int(input1/2)
 
-	if 0 <= number <= 255:
+	if 0 <= input1 <= 255:
 		bus.write_byte(addr, input1) # switch it on
 	else:
 		numb = 0
