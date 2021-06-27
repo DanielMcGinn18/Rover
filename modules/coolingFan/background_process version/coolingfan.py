@@ -23,20 +23,19 @@ s.close()
 def index():
 	return render_template('coolingfan.html')
 
-@app.route("/", methods=['GET', 'POST'])
-def submit(): 
+#background process happening without any refreshing
+@app.route('/background_process')
+def background_process():
 	global fan
-	if request.method == "POST":
-		if request.form.get("fan"):
-			if fan == 0:
-				fan = 1
-				GPIO.output(16, fan) # turn fan on
-				print ("Fan On")
-			else:
-				fan = 0
-				GPIO.output(16, fan) # turn fan off
-				print ("Fan Off")
-	return render_template('coolingfan.html')
+	if fan == 0:
+		fan = 1
+		GPIO.output(16, fan) # turn fan on
+		print ("Fan On")
+	else:
+		fan = 0
+		GPIO.output(16, fan) # turn fan off
+		print ("Fan Off")
+	return ("nothing")
 
 @app.route('/data', methods=["GET", "POST"])
 def data():

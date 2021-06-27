@@ -6,7 +6,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQuery link  -->
   <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-  <link rel="shortcut icon" href="{{ url_for('static', filename='img/mars-rover-svgrepo-com.svg') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='img/rocket-solid.svg') }}">
 </head>
 <body onload="requestData()" style="width:960px; margin: 20px auto;">
 
@@ -18,37 +18,19 @@
 </aside> -->
 <aside style="float:right;width:525px;"> 
  <h3><i class="fas fa-video"></i>  Video Feed</h3>
- <img  class="camera-bg" style="width: 41%; height:45%; background-attachment: fixed;" id="bg" class="center" src="{{ url_for('video_feed') }}">
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<!-- Actuator Values -->
- <aside style="float:right;width:262px;">
- <h3><i class="fas fa-wave-square"></i>  Actuators</h3>
- <p><i class="fas fa-fan"></i> <span id="actuator1">Cooling Fan: On  </span>
-  <form method="post" action="/">
-    <button type="submit" name='Fan' value='True'>Toggle Fan</button></p>
-  </form>
- <p><i class="fas fa-camera"></i> <span id="actuator2">Camera Tilt Servo: 0&#176;  </span></p>
- <p><i class="fas fa-wave-square"></i> <span id="actuator3">Motor PWM Output: TBD</span></p>
- </aside>
+ <img  class="camera-bg" style="background-attachment: fixed;" id="bg" class="center" src="{{ url_for('video_feed') }}">
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <!-- Sensor Values -->
- <h3><i class="fas fa-tachometer-alt"></i>  Sensors</h3>
- <p><i class="fas fa-satellite-dish"></i>  <span id="sensor1"></span></p>
- <!-- <p><i class="fas fa-thermometer-three-quarters"></i>  <span id="sensor3">Ambient Temp: </span></p> -->
- <p><!-- <i class="fas fa-battery-full"></i>  <span id="sensor5"></span>Battery: 90% --> <i class="fas fa-bolt"></i>  Battery Voltage: 11.3 V</p>
- <p><i class="fas fa-tachometer-alt"></i>  <span id="sensor5"></span>Motor Encoder Speed: TBD</p>
-
- <h3><i class="fab fa-raspberry-pi"></i>  Computer</h3>
- <p><i style="color:red" class="fas fa-microchip"></i>  <span id="sensor2" style="color:red"></span></p>
- <p><i class="fas fa-wifi"></i>  <span id="wifi">Wifi Network: NETGEAR**</span></p>
- <p><i class="fas fa-server"></i>  <span id="wifi">Server Address: http://&lt;ip&gt;:8000/</span></p>
+ <h3><i class="fab fa-raspberry-pi"></i>   Computer</h3>
+ <p><i style="color:#c71e04;" class="fas fa-microchip"></i>  <span id="sensor2" style="color:#c71e04;"></span></p>
 
 </aside>
 
 <!-- Connection Status -->
 
 <h1><i class="fas fa-user-astronaut" style="font-size:31px; vertical-align: top;"></i>  Mission Control</h1>
-<h4 hidden id = "connected">%s</h4> 
-<form action="/" method="POST">
+<h4 hidden id = "connected">True</h4> 
+<form style='margin: 0;' action="/" method="POST">
      <span id="dot"></span> <!-- Blink red  -->
      <span id="connectionStatus"></span>
 </form>
@@ -70,57 +52,38 @@
 <!-- Controls -->
 <aside style="float:left;width:320px;">
   <!-- Drive Commands -->
-<h3><i class="fas fa-arrows-alt"></i>  Drive Rover</h3>
-	<form action="/" method="POST" >
-		<center>
-			<button type="submit" name='Fwd' value='True' style="font-size:48px"><i class="fa fa-arrow-circle-up"></i></button>
-		</center><br>
-		<center>
-			<button type="submit" name='Left' value='True'style="font-size:48px"><i class="fa fa-arrow-circle-left"></i></button> 
-			&nbsp&nbsp
-			<button type="submit" name='Stop' value='True' style="font-size:48px"><i class="fa fa-stop-circle"></i></button> 
-			&nbsp&nbsp
-			<button type="submit" name='Right' value='True' style="font-size:48px"><i class="fa fa-arrow-circle-right"></i></button>
-		</center><br>
-		<center>
-			<button type="submit" name='Bkwd' value='True' style="font-size:48px"><i class="fa fa-arrow-circle-down"></i></button>
-		</center>
-	</form>
-	<form id="slider1" action="/" method="POST">
-		<input type="range" name="submit" step="5" min="0" max="100" value="0" class="slider" id="Speed">
-		<input hidden id='submitSpeed' type='submit' name='speed' value='True' tabindex='-1'>
-	</form>
-	<form hidden id='speedForm' action="/" method="POST">
-		<input id='speedFormText' type='text' name='Speed' tabindex='-1'>
-	</form>
-	<center>
-		<h4 hidden id='SpeedSetting'>0</h4>
-		<h4 id="SpeedText"></h4>
-	</center>
+	<div class='container'>
+        <h3><i class="fas fa-arrows-alt"></i>  Direction: <span id="direction"></span></h3>
+            <form method ="post" action="/">
+              <center><button type="submit" name='Fwd' value='Fwd' class="directionButton" style="font-size:48px"><i class="fas fa-arrow-up"></i></button></center><br>
+              <center><button type="submit" name="Left" value="Left" class="directionButton" style="font-size:48px"><i class="fas fa-arrow-left"></i></button>&nbsp&nbsp
+                <button type="submit" name="Stop" value="Stop" class="directionButton" style="font-size:48px"><i class="far fa-stop-circle"></i></button>&nbsp&nbsp
+              <button type="submit" name="Right" value="Right" class="directionButton" style="font-size:48px"><i class="fas fa-arrow-right"></i></i></button></center><br>
+              <center><button type="submit" name="Bwd" value="Bwd" class="directionButton" style="font-size:48px"><i class="fas fa-arrow-down"></i></i></button></center>
+            </form>
+            <form method ="post" action="/">
+              <h3><i class="fas fa-tachometer-alt"></i>   Speed: <span id="actuator2"></span></h3>
+              <input type="range" name="Speed" step="5" min="0" max="255" value="20" class="slider" id="Speed">
+            </form>
+            <form hidden id='speedForm' action="/" method="POST">
+              <input id='speedFormText' type='text' name='Speed' tabindex='-1'>
+            </form>
+    </div>
 
-  <!-- Control LEDs -->
-<h3><i class="far fa-lightbulb"></i>  Control LEDs</h3>
-	<form id='ledForm' action="/" method="POST">
-	<center>
-		<button type="submit" name='Red' value='True' class="buttonRed">Red</button>
-		<button type="submit" name='Green' value='True' class="buttonGreen">Green</button>
-		<button type="submit" name='Blue' value='True' class="buttonBlue">Blue</button>
-	</center>
-	</form>
+  <!-- Control Fan -->
+	<div class='container'>
+	  <h3><i class="fas fa-fan"></i>  <span id="actuator1">Cooling Fan: </span></h3>
+	      <form method ="post" action="/">
+	        <button type="submit" name='fan' value='fan' class='buttonBlue' style="font-size:20px"><i class="fas fa-fan"></i> fan</button>
+	      </form>
+	</div>
 </aside>
+
 <script>
-	document.getElementById("Speed").addEventListener("change", submit);
-	function submit() {
-		document.getElementById('speedFormText').value = 
-		document.getElementById('Speed').value 
-    	document.getElementById('speedForm').submit();
-	} 
-	// var slide = document.getElementById('Speed'),
-	// slide.onchange = function() {
-	// 	document.getElementById('speedSlider').submit();
-	// }
-    document.getElementById("Speed").value =
-    document.getElementById("SpeedSetting").innerHTML;
-    document.getElementById("SpeedText").innerHTML = 
-    'Speed:'+document.getElementById("SpeedSetting").innerHTML+'/100';
+  document.getElementById("Speed").addEventListener("change", submit);
+  function submit() {
+    document.getElementById('speedFormText').value = 
+    document.getElementById('Speed').value 
+      document.getElementById('speedForm').submit();
+  } 
 </script>

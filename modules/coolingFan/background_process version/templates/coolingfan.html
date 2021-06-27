@@ -2,19 +2,17 @@
 
 <head>
   <title>Cooling Fan</title>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> <!-- JQuery link for submit without refresh-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQuery link for requestdata()-->
   <script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
   <link rel=icon href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/svgs/solid/fan.svg>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
-  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-
 </head>
 
 <body onload="requestData()" style="width:960px; margin: 20px auto;">
   <div class='container'>
       <p><i class="fas fa-fan"></i> <span id="actuator1">Cooling Fan: </span></p>
-          <form method ="post" action="/">
-            <button type="submit" name='fan' value='fan' class='buttonBlue' style="font-size:20px"><i class="fas fa-fan"></i> fan</button>
+          <form>
+              <a href=# id=test><button class='btn btn-default'>Toggle</button></a>
           </form>
   </div>
 </body>

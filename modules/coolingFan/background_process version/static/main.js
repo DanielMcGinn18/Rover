@@ -1,3 +1,16 @@
+
+// Button
+$(function() {
+  $('a#test').on('click', function(e) {
+    e.preventDefault()
+    $.getJSON('/background_process',
+        function(data) {
+      //do nothing
+    });
+    return false;
+  });
+});
+
 // Request Data
 function requestData()
       {
