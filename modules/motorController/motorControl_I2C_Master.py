@@ -8,7 +8,7 @@ from time import time
 import smbus
 
 speed = 20
-direction = 'Forward'
+direction = 'Stop'
 
 bus = smbus.SMBus(1)
 
@@ -27,12 +27,14 @@ s.close()
 def Forward(speed):
 	global direction
 	print('Forward')
+	speed = int(speed)/2
 	data = [0, 1, int(speed), 1, 1, int(speed)]
 	bus.write_i2c_block_data(i2c_address, i2c_cmd, data)
 	direction = 'Forward'
 
 def Left(speed):
 	global direction
+	speed = int(speed)/2
 	print('Left')
 	data = [0, 0, int(speed), 1, 1, int(speed)]
 	bus.write_i2c_block_data(i2c_address, i2c_cmd, data)
@@ -40,6 +42,7 @@ def Left(speed):
 
 def Right(speed):
 	global direction
+	speed = int(speed)/2
 	print('Right')
 	data = [0, 1, int(speed), 1, 0, int(speed)]
 	bus.write_i2c_block_data(i2c_address, i2c_cmd, data)
@@ -47,6 +50,7 @@ def Right(speed):
 
 def Backward(speed):
 	global direction
+	speed = int(speed)/2
 	print('Backward')
 	data = [0, 0, int(speed), 1, 0, int(speed)]
 	bus.write_i2c_block_data(i2c_address, i2c_cmd, data)
@@ -82,7 +86,7 @@ def submit():
 		elif request.form.get("Speed"):
 			speed = request.form.get("Speed")
 			print(request.form.get("Speed"))
-			if direction == 'Fwd':
+			if direction == 'Forward':
 				Forward(speed)
 			elif direction == 'Left':
 				Left(speed)

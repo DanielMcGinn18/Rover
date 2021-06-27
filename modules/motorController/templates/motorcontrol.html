@@ -1,29 +1,33 @@
 <head>
   <title>Drive Rover</title>
-  <link rel=icon href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/svgs/solid/wave-square.svg>
+  <link rel=icon href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/svgs/solid/arrows-alt.svg>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQuery link for requestdata()-->
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
   <script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
 </head>
 
 <body onload="requestData()" style="width:960px; margin: 20px auto;">
-  <div class='container'>
-      <p><span id="motorA">Control Motors </span></p>
-          <form method ="post" action="/">
-            <button type="submit" name="Fwd" value="Fwd"> Fwd </button>
-            <button type="submit" name="Left" value="Left"> Left </button>
-            <button type="submit" name="Right" value="Right"> Right </button>
-            <button type="submit" name="Bwd" value="Bwd"> Bwd </button>
-            <button type="submit" name="Stop" value="Stop"> Stop </button>
-          </form>
-          <form method ="post" action="/">
-            <label for="Speed">Speed:</label>
-            <input type="range" name="Speed" step="5" min="0" max="255" value="20" class="slider" id="Speed">
-          </form>
-          <form hidden id='speedForm' action="/" method="POST">
-            <input id='speedFormText' type='text' name='Speed' tabindex='-1'>
-          </form>
-          <p><span id="actuator2">Calculating...</span></p>
-  </div>
+  <!-- Controls -->
+  <aside style="float:left;width:320px;">
+    <div class='container'>
+        <p><span id="motorA">Control Motors </span></p>
+            <form method ="post" action="/">
+              <center><button type="submit" name='Fwd' value='Fwd' class="directionButton" style="font-size:48px"><i class="fas fa-arrow-up"></i></button></center><br>
+              <center><button type="submit" name="Left" value="Left" class="directionButton" style="font-size:48px"><i class="fas fa-arrow-left"></i></button>&nbsp&nbsp
+                <button type="submit" name="Stop" value="Stop" class="directionButton" style="font-size:48px"><i class="far fa-stop-circle"></i></button>&nbsp&nbsp
+              <button type="submit" name="Right" value="Right" class="directionButton" style="font-size:48px"><i class="fas fa-arrow-right"></i></i></button></center><br>
+              <center><button type="submit" name="Bwd" value="Bwd" class="directionButton" style="font-size:48px"><i class="fas fa-arrow-down"></i></i></button></center>
+            </form>
+            <form method ="post" action="/">
+              <p>Speed: <span id="actuator2">Calculating...</span></p><br>
+              <input type="range" name="Speed" step="5" min="0" max="255" value="20" class="slider" id="Speed">
+            </form>
+            <form hidden id='speedForm' action="/" method="POST">
+              <input id='speedFormText' type='text' name='Speed' tabindex='-1'>
+            </form>
+    </div>
+  </aside>
 </body>
 <script>
   document.getElementById("Speed").addEventListener("change", submit);
