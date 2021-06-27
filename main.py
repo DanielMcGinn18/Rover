@@ -3,11 +3,15 @@
 from flask import Flask,render_template,url_for,request,redirect, make_response, Response, request # micro web framework 
 from camera import VideoCamera # Camera Module
 import RPi.GPIO as GPIO # GPIO library to control GPIO pins of Raspberry Pi
+GPIO.setmode(GPIO.BCM)
 # from smbus2 import SMBus # i2c capabilities to control atmega328p
 import time, threading, os, socket, random, json
 from time import time
 from random import random
 import board, adafruit_hcsr04 # Libraries for Ultrasonic Sensor
+
+GPIO.setup(16, GPIO.OUT) # GPIO Pin for Cooling Fan
+GPIO.output(16, 0) # Initialize Fan off
 
 pi_camera = VideoCamera(flip=False) # flip pi camera if upside down.
 
@@ -46,6 +50,10 @@ def video_feed():
 
 @app.route("/test", methods=["POST"])
 def test():
+    if form.validate_on_submit():
+        print(request.form)
+        if 'Fan' in request.form:
+            GPIO.output(16, 1)
     slider1 = request.form["slider1"]  # Get slider Value
     p.ChangeDutyCycle(float(slider1)) # Change duty cycle
     sleep(1)
@@ -57,11 +65,11 @@ def test():
 def data():
     # Data1 = random() * 100 # Random Number for testing
     try:
-        distance = 'Ultrasonic Sensor: ' + str(round(sonar.distance,2))
+        distance = 'Ultrasonic Sensor: ' + str(round(sonar.distance,2)) + ' cm'
     except RuntimeError:
         distance = 'Error'
     temp = os.popen("/opt/vc/bin/vcgencmd measure_temp").read()
-    temp_US = ('Raspberry Pi Temp: ' + str(round(((float(temp.split('=')[1].split("'")[0])*1.8)+30),2)) +
+    temp_US = ('CPU Temp: ' + str(round(((float(temp.split('=')[1].split("'")[0])*1.8)+30),2)) +
      u'\N{DEGREE SIGN}' + ' F') # Convert to Fahrenheit
     data = [time() * 1000, distance, temp_US]
     response = make_response(json.dumps(data))
