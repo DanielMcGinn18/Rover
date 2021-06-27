@@ -7,7 +7,7 @@ from time import time
 
 import smbus
 
-motors = 0
+speed = 20
 
 bus = smbus.SMBus(1)
 
@@ -31,26 +31,41 @@ def index():
 
 @app.route("/", methods=['GET', 'POST'])
 def submit(): 
+	global speed
 	if request.method == "POST":
 		if request.form.get("Fwd"):
-			print('Fwd')
-			data = [0, 1, 50, 1, 1, 50]
+			print('Forward')
+			data = [0, 1, int(speed), 1, 1, int(speed)]
+			bus.write_i2c_block_data(i2c_address, i2c_cmd, data)
+		elif request.form.get("Left"):
+			print('Left')
+			data = [0, 0, int(speed), 1, 1, int(speed)]
+			bus.write_i2c_block_data(i2c_address, i2c_cmd, data)
+		elif request.form.get("Right"):
+			print('Right')
+			data = [0, 1, int(speed), 1, 0, int(speed)]
+			bus.write_i2c_block_data(i2c_address, i2c_cmd, data)
+		elif request.form.get("Bwd"):
+			print('Backward')
+			data = [0, 0, int(speed), 1, 0, int(speed)]
 			bus.write_i2c_block_data(i2c_address, i2c_cmd, data)
 		elif request.form.get("Stop"):
 			print('Stop')
 			data = [0, 1, 0, 1, 1, 0]
 			bus.write_i2c_block_data(i2c_address, i2c_cmd, data)
+		elif request.form.get("Speed"):
+			speed = request.form.get("Speed")
+			print(request.form.get("Speed"))
 		return render_template('motorcontrol.html')
 
-
-#background process happening without any refreshing
-@app.route('/background_process')
-def background_process():
-	print('Yes')
-	default_name = '0'
-	data = request.form.get('test', default_name)
-	print(data)
-	return ("nothing")
+@app.route('/data', methods=["GET", "POST"])
+def data():
+	global speed
+	string = speed
+	data = [time() * 1000, string]
+	response = make_response(json.dumps(data))
+	response.content_type = 'application/json'
+	return response
 
 if __name__ == '__main__':
 
