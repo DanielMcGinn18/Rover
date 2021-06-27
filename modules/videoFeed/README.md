@@ -1,4 +1,4 @@
-## Library dependencies
+## Video Module
 Install the following dependencies
 
 ```
