@@ -18,7 +18,7 @@ input.mono {
   font-size: 11px;
 }
 .green{
-  color: #38DF44;
+  color: #2DC65A;
 }
 .red{
   color: red;
@@ -48,14 +48,14 @@ input.mono {
   display: inline-block;
 }
 @keyframes blinkingTextGreen{
-  0%{   color: #38DF44;  }
+  0%{   color: #2DC65A;  }
   50%{  color: transparent; }
-  100%{ color: #38DF44;  }
+  100%{ color: #2DC65A;  }
 }
 @keyframes blinkingDotGreen{
-  0%{   background-color: #38DF44;  }
+  0%{   background-color: #2DC65A;  }
   50%{  background-color: transparent; }
-  100%{ background-color: #38DF44;  }
+  100%{ background-color: #2DC65A;  }
 }
 @keyframes blinkingTextRed{
   0%{   color: red;  }
@@ -67,6 +67,11 @@ input.mono {
   50%{  background-color: transparent; }
   100%{ background-color: red;  }
 }
+
+h3 {
+  color: #132147;
+}
+
 .slidecontainer {
   width: 100%;
 }
@@ -74,8 +79,9 @@ input.mono {
 .slider {
   -webkit-appearance: none;
   width: 100%;
-  height: 25px;
-  background: #d3d3d3;
+  height: 15px;
+  border-radius: 5px;
+  background: #6892C1;
   outline: none;
   opacity: 0.7;
   -webkit-transition: .2s;
@@ -91,14 +97,16 @@ input.mono {
   appearance: none;
   width: 25px;
   height: 25px;
-  background: black;
+  border-radius: 50%;
+  background: #132147;
   cursor: pointer;
 }
 
 .slider::-moz-range-thumb {
   width: 25px;
   height: 25px;
-  background: #4CAF50;
+  border-radius: 50%;
+  background: #132147;
   cursor: pointer;
 }
 
@@ -185,9 +193,9 @@ input.mono {
 
 .buttonBlue {
   background-color: white; 
-  color: blue; 
-  border: 2px solid #337ef5;
-  padding: 16px 24px;
+  color: #132147; 
+  border: 2px solid #6892C1;
+  padding: 12px 18px;
   text-align: center;
   text-decoration: none;
   font-size: 16px;
@@ -195,10 +203,32 @@ input.mono {
 }
 
 .buttonBlue:hover {
-  background-color: #337ef5;
+  background-color: #132147;
   color: white;
-  border: 2px solid #337ef5;
-  padding: 16px 24px;
+  border: 2px solid #132147;
+  padding: 12px 18px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 2px;
+}
+
+.directionButton {
+  background-color: white; 
+  color: #132147; 
+  border: 3px solid #6892C1;
+  padding: 5px 7px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 2px;
+}
+
+.directionButton:hover {
+  background-color: #132147;
+  color: white;
+  border: 3px solid #132147;
+  padding: 5px 7px;
   text-align: center;
   text-decoration: none;
   font-size: 16px;
