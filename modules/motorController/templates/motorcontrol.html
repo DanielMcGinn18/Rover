@@ -1,5 +1,5 @@
 <head>
-  <title>Motor Control</title>
+  <title>Drive Rover</title>
   <link rel=icon href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/svgs/solid/wave-square.svg>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQuery link for requestdata()-->
   <script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
@@ -16,13 +16,13 @@
             <button type="submit" name="Stop" value="Stop"> Stop </button>
           </form>
           <form method ="post" action="/">
-            <label for="Speed">Speed (between 0 and 255):</label>
+            <label for="Speed">Speed:</label>
             <input type="range" name="Speed" step="5" min="0" max="255" value="20" class="slider" id="Speed">
           </form>
           <form hidden id='speedForm' action="/" method="POST">
             <input id='speedFormText' type='text' name='Speed' tabindex='-1'>
           </form>
-          <p><span id="actuator2">Motor Speed </span></p>
+          <p><span id="actuator2">Calculating...</span></p>
   </div>
 </body>
 <script>

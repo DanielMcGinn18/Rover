@@ -8,6 +8,7 @@ from time import time
 import smbus
 
 speed = 20
+direction = 'Forward'
 
 bus = smbus.SMBus(1)
 
@@ -23,6 +24,41 @@ s.connect(("8.8.8.8",80))
 ip_address = s.getsockname()[0] # Get IP Address
 s.close()
 
+def Forward(speed):
+	global direction
+	print('Forward')
+	data = [0, 1, int(speed), 1, 1, int(speed)]
+	bus.write_i2c_block_data(i2c_address, i2c_cmd, data)
+	direction = 'Forward'
+
+def Left(speed):
+	global direction
+	print('Left')
+	data = [0, 0, int(speed), 1, 1, int(speed)]
+	bus.write_i2c_block_data(i2c_address, i2c_cmd, data)
+	direction = 'Left'
+
+def Right(speed):
+	global direction
+	print('Right')
+	data = [0, 1, int(speed), 1, 0, int(speed)]
+	bus.write_i2c_block_data(i2c_address, i2c_cmd, data)
+	direction = 'Right'
+
+def Backward(speed):
+	global direction
+	print('Backward')
+	data = [0, 0, int(speed), 1, 0, int(speed)]
+	bus.write_i2c_block_data(i2c_address, i2c_cmd, data)
+	direction = 'Backward'
+
+def Stop():
+	global direction
+	print('Stop')
+	data = [0, 1, 0, 1, 1, 0]
+	bus.write_i2c_block_data(i2c_address, i2c_cmd, data)
+	direction = 'Stop'
+
 #rendering the HTML page which has the button
 @app.route('/')
 def index():
@@ -31,31 +67,32 @@ def index():
 
 @app.route("/", methods=['GET', 'POST'])
 def submit(): 
-	global speed
+	global speed, direction
 	if request.method == "POST":
 		if request.form.get("Fwd"):
-			print('Forward')
-			data = [0, 1, int(speed), 1, 1, int(speed)]
-			bus.write_i2c_block_data(i2c_address, i2c_cmd, data)
+			Forward(speed)
 		elif request.form.get("Left"):
-			print('Left')
-			data = [0, 0, int(speed), 1, 1, int(speed)]
-			bus.write_i2c_block_data(i2c_address, i2c_cmd, data)
+			Left(speed)
 		elif request.form.get("Right"):
-			print('Right')
-			data = [0, 1, int(speed), 1, 0, int(speed)]
-			bus.write_i2c_block_data(i2c_address, i2c_cmd, data)
+			Right(speed)
 		elif request.form.get("Bwd"):
-			print('Backward')
-			data = [0, 0, int(speed), 1, 0, int(speed)]
-			bus.write_i2c_block_data(i2c_address, i2c_cmd, data)
+			Backward(speed)
 		elif request.form.get("Stop"):
-			print('Stop')
-			data = [0, 1, 0, 1, 1, 0]
-			bus.write_i2c_block_data(i2c_address, i2c_cmd, data)
+			Stop()
 		elif request.form.get("Speed"):
 			speed = request.form.get("Speed")
 			print(request.form.get("Speed"))
+			if direction == 'Fwd':
+				Forward(speed)
+			elif direction == 'Left':
+				Left(speed)
+			elif direction == 'Right':
+				Right(speed)
+			elif direction == 'Backward':
+				Backward(speed)
+			else:
+				Stop()
+
 		return render_template('motorcontrol.html')
 
 @app.route('/data', methods=["GET", "POST"])
