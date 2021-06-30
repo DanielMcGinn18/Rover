@@ -78,6 +78,10 @@ h3 {
   color: #132147;
 }
 
+h1 {
+  color: #132147;
+}
+
 .slidecontainer {
   width: 100%;
 }
@@ -249,7 +253,7 @@ div.contain {
 }
 
 .camera-bg {
-  position: fixed; 
+/*  position: fixed; */
 /*  top: 0; 
   left: 0; */
 
@@ -257,11 +261,12 @@ div.contain {
 /*  min-width: 100%;
   min-height: 100%;*/
 
-    /* Full height */
-  /*height: 100%;*/
+    /* set height */
+  height: 300px;
 
 
   /* Center and scale the image nicely */
+  /*border: 3px solid #6892C1;*/
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
