@@ -47,6 +47,12 @@ input.mono {
   border-radius: 50%;
   display: inline-block;
 }
+.hot {
+  color:#c71e04;
+}
+.cold {
+  color:#132147;
+}
 @keyframes blinkingTextGreen{
   0%{   color: #2DC65A;  }
   50%{  color: transparent; }

@@ -10,7 +10,13 @@ function requestData()
 	            /*var x = JSON.stringify(requests);
 	            document.getElementById("sensor1").innerHTML = x*/
 	            var x = requests.responseJSON
-	            document.getElementById("sensor2").innerHTML = x[1]
+                if (x[1] >= 100) {
+                    document.getElementById("temp").className = 'hot'
+                }
+                else {
+                    document.getElementById("temp").className = 'cold'
+                }
+	            document.getElementById("temp").innerHTML = String(x[1]) + "\u00B0 F"
 	            document.getElementById("actuator2").innerHTML = x[2]
             	document.getElementById("Speed").value = x[2]
             	document.getElementById("actuator1").innerHTML = x[3]
